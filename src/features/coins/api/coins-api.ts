@@ -1,0 +1,3 @@
+// CoinGecko API функции
+export {};
+

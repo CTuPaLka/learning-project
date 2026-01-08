@@ -1,0 +1,3 @@
+// Имитация backend (localStorage)
+export {};
+

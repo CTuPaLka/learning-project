@@ -1,0 +1,3 @@
+// QueryClient конфигурация
+export {};
+
