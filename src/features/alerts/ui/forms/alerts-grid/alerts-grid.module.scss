@@ -1,0 +1,127 @@
+.alertsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+
+  &__empty {
+    padding: 4rem 2rem;
+    text-align: center;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.5rem;
+  }
+
+  &__emptyText {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+    margin-bottom: 0.5rem;
+  }
+
+  &__emptyHint {
+    font-size: 0.875rem;
+    color: hsl(var(--muted-foreground));
+  }
+
+  &__card {
+    padding: 1.5rem;
+    transition: all 0.2s ease;
+    border-left: 4px solid transparent;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    &--above {
+      border-left-color: rgb(34 197 94); // green-500
+    }
+
+    &--below {
+      border-left-color: rgb(239 68 68); // red-500
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+  }
+
+  &__coinInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__coinNames {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  &__coinName {
+    font-weight: 600;
+    font-size: 1rem;
+    color: hsl(var(--foreground));
+  }
+
+  &__coinSymbol {
+    font-size: 0.75rem;
+    color: hsl(var(--muted-foreground));
+    text-transform: uppercase;
+  }
+
+  &__badges {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &__activeBadge {
+    font-size: 0.75rem;
+  }
+
+  &__triggeredBadge {
+    font-size: 0.75rem;
+  }
+
+  &__prices {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__priceItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+  }
+
+  &__priceLabel {
+    font-size: 0.75rem;
+    color: hsl(var(--muted-foreground));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__arrow {
+    font-size: 2rem;
+    color: hsl(var(--muted-foreground));
+    flex-shrink: 0;
+  }
+
+  &__condition {
+    padding-top: 1rem;
+    border-top: 1px solid hsl(var(--border));
+  }
+
+  &__conditionText {
+    font-size: 0.875rem;
+    color: hsl(var(--muted-foreground));
+    font-style: italic;
+  }
+}
+

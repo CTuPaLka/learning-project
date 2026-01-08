@@ -1,0 +1,100 @@
+.portfolioTable {
+  width: 100%;
+  overflow-x: auto;
+
+  &__empty {
+    padding: 4rem 2rem;
+    text-align: center;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.5rem;
+  }
+
+  &__emptyText {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+    margin-bottom: 0.5rem;
+  }
+
+  &__emptyHint {
+    font-size: 0.875rem;
+    color: hsl(var(--muted-foreground));
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  &__thead {
+    border-bottom: 1px solid hsl(var(--border));
+    background: hsl(var(--muted) / 0.3);
+  }
+
+  &__th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: hsl(var(--muted-foreground));
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__tbody {
+  }
+
+  &__row {
+    border-bottom: 1px solid hsl(var(--border));
+    transition: background-color 0.2s ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: hsl(var(--muted) / 0.3);
+    }
+  }
+
+  &__td {
+    padding: 1rem;
+    vertical-align: middle;
+  }
+
+  &__coinInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__coinNames {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  &__coinName {
+    font-weight: 600;
+    color: hsl(var(--foreground));
+  }
+
+  &__coinSymbol {
+    font-size: 0.75rem;
+    color: hsl(var(--muted-foreground));
+    text-transform: uppercase;
+  }
+
+  &__profitCell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
