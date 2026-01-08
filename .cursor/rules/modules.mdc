@@ -1,0 +1,197 @@
+---
+alwaysApply: false
+---
+
+# Модульная архитектура проекта
+
+## Структура модулей
+
+### Features модули (src/features/[module-name]/)
+
+- Используй модульную архитектуру с четким разделением ответственности
+- Структура: types/ → model/ → ui/ → [module].tsx → index.tsx
+- Каждый feature - самостоятельная бизнес-единица с собственным состоянием
+
+### Обязательная структура:
+
+```
+src/features/[module-name]/
+├── types/
+│   ├── index.ts (экспорт всех типов)
+│   └── [entity].ts (основные типы данных)
+├── model/
+│   ├── hooks/ (бизнес-логика через хуки)
+│   ├── store/ (Zustand store с типами)
+│   ├── context/ (React context (если стор излишен))
+│   └── index.ts
+├── ui/
+│   ├── common/[component]/ (переиспользуемые UI компоненты)
+│   ├── forms/[component]/ (специфичные компоненты, например, формы, модальные окна, таблицы)
+│   └── index.ts
+├── [module].tsx (главный компонент)
+├── [module].module.scss
+├── [module].stories.tsx
+└── index.tsx (публичный API модуля)
+```
+
+## Технологический стек
+
+### State Management - ТОЛЬКО Zustand
+
+- Создавай store в model/store/ с provider паттерном
+- Используй селекторы для оптимизации (useShallow)
+- Store должен содержать actions и мутации
+
+### Context API - ТОЛЬКО как DI контейнер
+
+- Создавай context в model/context/
+
+### UI Kit - ТОЛЬКО @/shared/ui
+
+- Импорты: @/shared/ui/button, @/shared/ui/card, @/shared/ui/input, и т.д.
+- Каждый UI компонент в отдельной папке с .tsx, .module.scss, .stories.tsx
+
+### API интеграция - React Query мутации
+
+- Используй useApiMutation для всех API вызовов
+- Мутации передаются через props в store
+- Обрабатывай ошибки через toast уведомления
+
+## Паттерны кода
+
+### Store типизация:
+
+```typescript
+interface State {
+  data: EntityType[];
+  disabled?: boolean;
+  mutate: {
+    create: ReturnType<
+      typeof useMutation<EntityType, ErrorInstance, CreateData, unknown>
+    >;
+    update: ReturnType<typeof useMutation<boolean, ErrorInstance, EntityType, unknown>>;
+    delete: ReturnType<typeof useMutation<boolean, ErrorInstance, EntityType, unknown>>;
+  };
+}
+
+interface Store extends State {
+  actions: {
+    addEntity: (entity: EntityType) => void;
+    removeEntity: (id: number) => void;
+    updateEntity: (entity: EntityType) => void;
+  };
+}
+```
+
+### Хуки паттерн:
+
+```typescript
+const useEntityAction = () => {
+  const mutate = useModuleStore(selectMutate);
+  const updateAction = useModuleStore(selectActions.updateEntity);
+
+  const performAction = React.useCallback(
+    async (data) => {
+      const result = await mutate.action.mutateAsync(data);
+      if (result) {
+        updateAction(result);
+      }
+      return result;
+    },
+    [mutate.action, updateAction]
+  );
+
+  return { performAction, isLoading: mutate.action.isPending };
+};
+```
+
+### Widget создание (src/widgets/[domain]/[module]/):
+
+```typescript
+const ModuleWidget = ({ disabled = false }: { disabled?: boolean }) => {
+  const { id } = useClientLegalEntityContext();
+  const { data: entity, refetch } = useGetEntityQuery(id);
+  const [toast] = useMessage();
+
+  const data = React.useMemo(() =>
+    entity?.items?.map(transformData) || [], [entity]);
+
+  const createMutate = useApiMutation<ResultType, ErrorInstance, InputType>({
+    mutationFn: async (data) => await Api.Client.create(data),
+    onSuccess: () => refetch(),
+    onError: (error) => toast({ text: "Ошибка", type: "error" })
+  });
+
+  return <ModuleFeature data={data} disabled={disabled} mutate={{ create: createMutate }} />;
+};
+```
+
+## Правила именования
+
+### Файлы и папки:
+
+- kebab-case для папок и файлов: `bank-requisites`, `upload-documents`
+- PascalCase для компонентов: `BankRequisitesFeature`, `ModuleWidget`
+- camelCase для хуков: `useBankRequisites`, `useCreateEntity`
+- БЭМ нотация для стилей: `.block`, `.block__element`, `.block__element--mod`
+
+### Типы:
+
+- Интерфейсы без префикса I: `BankRequisite`, `DocumentUpload`
+- State/Store типы: `State`, `Store`, `MutateParametersT`
+- Props пиши прямо в компоненте: `{ prop1 }: { prop1: type }`
+
+### Селекторы:
+
+- Префикс select: `selectBankRequisites`, `selectActions`, `selectMutate`
+- Группировка actions: `selectActions.addEntity`
+
+## Обязательные элементы
+
+### Каждый модуль должен экспортировать:
+
+- Главный Feature компонент
+- Все типы данных
+- UI компоненты для переиспользования
+- Хуки для внешнего использования
+- Store Provider и селекторы
+
+### Каждый UI компонент должен иметь:
+
+- TypeScript интерфейс для props
+- CSS модули (.module.scss)
+- Storybook stories (.stories.tsx)
+- Экспорт через index.ts
+
+### Storybook требования:
+
+- Использовать @storybook/nextjs
+- QueryClientProvider для мутаций
+- Минимум 4 сценария: Default, Empty, Loading, Disabled
+- Mock мутации с правильными типами
+
+## Запрещенные практики
+
+❌ Context API для бизнес-состояния
+❌ Прямые API вызовы в компонентах (без мутаций)
+❌ Монолитные файлы >200 строк
+❌ Смешивание бизнес-логики и UI логики
+❌ Состояние в компонентах для серверных данных
+
+## Производительность
+
+- Используй React.memo для компонентов
+- useCallback для функций в хуках
+- useMemo для трансформации данных
+- Селекторы с useShallow для оптимизации
+- Ленивая загрузка тяжелых компонентов
+
+## TypeScript
+
+- Строгая типизация всех props и состояний
+- Избегай any, используй unknown при необходимости
+- Экспортируй все публичные типы через index.ts
+- Используй утилитарные типы: Omit, Pick, Partial
+- ReturnType для типизации мутаций
+
+Следуй этим правилам при создании или миграции модулей!

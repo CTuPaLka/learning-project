@@ -1,0 +1,43 @@
+.priceChart {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  &__periods {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &__periodButton {
+    min-width: 3rem;
+  }
+
+  &__chartContainer {
+    height: 400px;
+    position: relative;
+  }
+
+  @media (max-width: 768px) {
+    &__chartContainer {
+      height: 300px;
+    }
+  }
+}
+

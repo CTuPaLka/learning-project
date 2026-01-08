@@ -1,0 +1,74 @@
+.coinTable {
+  width: 100%;
+  overflow-x: auto;
+
+  &__loading,
+  &__empty {
+    padding: 3rem;
+    text-align: center;
+    color: hsl(var(--muted-foreground));
+    font-size: 0.875rem;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  &__thead {
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  &__th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: hsl(var(--muted-foreground));
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__tbody {
+  }
+
+  &__row {
+    border-bottom: 1px solid hsl(var(--border));
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: hsl(var(--muted) / 0.3);
+      cursor: pointer;
+    }
+  }
+
+  &__td {
+    padding: 1rem;
+    vertical-align: middle;
+  }
+
+  &__coinInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__coinNames {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  &__coinName {
+    font-weight: 600;
+    color: hsl(var(--foreground));
+  }
+
+  &__coinSymbol {
+    font-size: 0.75rem;
+    color: hsl(var(--muted-foreground));
+    text-transform: uppercase;
+  }
+}
+

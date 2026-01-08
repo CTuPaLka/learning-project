@@ -1,0 +1,29 @@
+.marketOverview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  &__card {
+    padding: 1.5rem;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__label {
+    font-size: 0.875rem;
+    color: hsl(var(--muted-foreground));
+    font-weight: 500;
+  }
+
+  &__value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+}
+

@@ -1,0 +1,59 @@
+.coinHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  border-bottom: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+
+  &__main {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__name {
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  &__symbol {
+    font-size: 0.875rem;
+    color: hsl(var(--muted-foreground));
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  &__price {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  @media (max-width: 768px) {
+    &__price {
+      margin-left: 0;
+      width: 100%;
+    }
+
+    &__actions {
+      width: 100%;
+    }
+  }
+}
+

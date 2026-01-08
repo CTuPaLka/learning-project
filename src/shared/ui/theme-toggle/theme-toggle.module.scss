@@ -1,0 +1,21 @@
+.themeToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+
+  &__icon {
+    font-size: 1.125rem;
+    line-height: 1;
+  }
+
+  &__label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+

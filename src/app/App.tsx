@@ -1,23 +1,21 @@
-import { AppRouter } from './router';
+import { AppProviders } from "./providers/app-providers"
+import { AppRouter } from "./router"
 
 /**
  * Главный компонент приложения Crypto Tracker
- * 
+ *
  * Структура:
+ * - AppProviders: обертка с ThemeProvider и QueryProvider
  * - AppRouter: управляет роутингом между страницами
- * 
- * В будущем здесь будут добавлены:
- * - QueryClientProvider для TanStack Query
- * - Другие глобальные провайдеры (темы, локализация и т.д.)
  */
 function App() {
-  return (
-    <div className="app">
-      <AppRouter />
-    </div>
-  );
+	return (
+		<AppProviders>
+			<div className='app'>
+				<AppRouter />
+			</div>
+		</AppProviders>
+	)
 }
 
-export default App;
-
-
+export default App

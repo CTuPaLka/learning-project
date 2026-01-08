@@ -1,13 +1,16 @@
+import { CoinTable } from "@/features/coins/ui/forms/coin-table"
+import { MarketOverview } from "@/features/coins/ui/forms/market-overview"
+import { mockCoinsList, mockMarketOverview } from "@/shared/mocks/coins"
+import { Layout } from "@/shared/ui/layout"
+
 /**
  * Главная страница - Список монет + поиск
  */
 export default function HomePage() {
-  return (
-    <div style={{ padding: '20px' }}>
-      <h1>🏠 Главная страница</h1>
-      <p>Здесь будет список криптовалют и поиск</p>
-    </div>
-  );
+	return (
+		<Layout>
+			<MarketOverview {...mockMarketOverview} />
+			<CoinTable coins={mockCoinsList} />
+		</Layout>
+	)
 }
-
-
