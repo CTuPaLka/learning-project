@@ -35,6 +35,7 @@
 - **CoinGecko API**: https://docs.coingecko.com/reference/introduction
 - **Demo API** (без ключа): https://api.coingecko.com/api/v3
 - **Регистрация для ключа**: https://www.coingecko.com/en/api/pricing (опционально)
+- **coinGecko**: https://www.coingecko.com/en/portfolio
 
 ### Технологии (документация)
 
