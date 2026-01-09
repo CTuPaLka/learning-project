@@ -323,17 +323,25 @@ export const coinDetailSchema = z.object({
 	symbol: z.string(),
 	name: z.string(),
 	description: z.object({ en: z.string() }),
-	image: z.object({
-		large: z.string().url(),
-	}),
-	market_data: z.object({
-		current_price: z.record(z.number()),
-		market_cap: z.record(z.number()),
-		total_volume: z.record(z.number()),
-		high_24h: z.record(z.number()),
-		low_24h: z.record(z.number()),
-		price_change_percentage_24h: z.number(),
-	}),
+	image: z
+		.object({
+			large: z.string().url(),
+		})
+		.optional(),
+	market_data: z
+		.object({
+			current_price: z.record(z.number()),
+			market_cap: z.record(z.number()),
+			total_volume: z.record(z.number()),
+			price_change_percentage_24h: z.number(),
+			high_24h: z.record(z.number()),
+			low_24h: z.record(z.number()),
+			circulating_supply: z.number().nullable(),
+			total_supply: z.number().nullable(),
+		})
+		.optional(),
+	market_cap_rank: z.number().optional(),
+	last_updated: z.string().optional(),
 })
 
 export type CoinDetail = z.infer<typeof coinDetailSchema>
