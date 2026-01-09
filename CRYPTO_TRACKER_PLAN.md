@@ -263,36 +263,31 @@ export const QueryProvider = ({ children }: QueryProviderProps) => {
 Создать `src/shared/lib/format.ts`:
 
 ```typescript
-export const formatPrice = (
-	price: number,
-	currency: string = "usd"
-): string => {
-	const currencySymbols: Record<string, string> = {
-		usd: "$",
-		eur: "€",
-		rub: "₽",
-	}
+const CURRENCY_SYMBOLS = {
+	usd: "$",
+	eur: "€",
+	rub: "₽",
+} as const
 
-	const symbol = currencySymbols[currency] || "$"
+type Currency = keyof typeof CURRENCY_SYMBOLS
 
-	if (price >= 1000000) {
-		return `${symbol}${(price / 1000000).toFixed(2)}M`
-	}
+export const format = {
+	price: (price: number, currency: Currency = "usd"): string => {
+		const symbol = CURRENCY_SYMBOLS[currency]
 
-	if (price >= 1000) {
-		return `${symbol}${(price / 1000).toFixed(2)}K`
-	}
+		if (price >= 1_000_000) return `${symbol}${(price / 1_000_000).toFixed(2)}M`
+		if (price >= 1_000) return `${symbol}${(price / 1_000).toFixed(2)}K`
+		return `${symbol}${price.toFixed(2)}`
+	},
 
-	return `${symbol}${price.toFixed(2)}`
-}
+	percentage: (value: number): string => {
+		const formatted = value.toFixed(2)
+		return value >= 0 ? `+${formatted}%` : `${formatted}%`
+	},
 
-export const formatPercentage = (value: number): string => {
-	const formatted = value.toFixed(2)
-	return value >= 0 ? `+${formatted}%` : `${formatted}%`
-}
-
-export const formatNumber = (value: number): string => {
-	return new Intl.NumberFormat("en-US").format(value)
+	number: (value: number): string => {
+		return new Intl.NumberFormat("en-US").format(value)
+	},
 }
 ```
 
