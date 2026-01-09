@@ -423,7 +423,7 @@ export const useChartData = (id: string, days: string = "7") => {
 	return useQuery({
 		queryKey: queryKeys.coins.chart(id, days),
 		queryFn: () => coinsApi.getChartData(id, days),
-		enabled: !!id,
+		enabled: !!id, // запрос идет если id не undefined или null
 		refetchInterval: 60000, // Обновление каждую минуту
 	})
 }
