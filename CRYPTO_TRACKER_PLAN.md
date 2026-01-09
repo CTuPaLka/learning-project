@@ -48,15 +48,7 @@
 
 ### UI/UX Дизайн макеты
 
-1. **Cooin Crypto UI Kit** (Figma, бесплатный)
-
-   - Ссылка: https://www.figma.com/community/file/1089615576514460763
-   - Содержит: Dashboard, Portfolio, Coin Details, Alerts
-   - Темная/светлая тема
-
-2. **Crypto Dashboard** by Craftwork
-   - Ссылка: https://www.figma.com/community/search?model_type=files&q=crypto%20dashboard
-   - Альтернативный минималистичный дизайн
+1. используем пример CoinGecko сайта
 
 ### Дополнительные инструменты
 
